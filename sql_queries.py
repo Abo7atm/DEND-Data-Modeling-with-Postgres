@@ -10,7 +10,7 @@ time_table_drop = 'drop table if exists time'
 
 songplay_table_create = ("""
     create table if not exists songplays (
-        songplay_id bigserial,
+        songplay_id bigserial PRIMARY KEY,
         start_time bigint,
         user_id int,
         level text,
@@ -24,7 +24,7 @@ songplay_table_create = ("""
 
 user_table_create = ("""
     create table if not exists users (
-        user_id int,
+        user_id int PRIMARY KEY,
         first_name text,
         last_name text,
         gender text,
@@ -34,7 +34,7 @@ user_table_create = ("""
 
 song_table_create = ("""
     create table if not exists songs (
-        song_id text,
+        song_id text PRIMARY KEY,
         title text,
         artist_id text,
         year int,
@@ -44,7 +44,7 @@ song_table_create = ("""
 
 artist_table_create = ("""
     create table if not exists artists (
-        artist_id text,
+        artist_id text PRIMARY KEY,
         name text,
         location text,
         latitude numeric,
@@ -54,7 +54,7 @@ artist_table_create = ("""
 
 time_table_create = ("""
     create table if not exists time (
-        start_time bigint,
+        start_time bigint PRIMARY KEY,
         hour int,
         day int,
         week int,
@@ -83,6 +83,9 @@ user_table_insert = ("""
     ) VALUES (
        %s, %s, %s, %s, %s
     )
+    on conflict (user_id)
+    do update 
+    set level = 'paid'
 """)
 
 song_table_insert = ("""
@@ -101,6 +104,8 @@ artist_table_insert = ("""
     ) VALUES (
        %s, %s, %s, %s, %s
     )
+    on conflict (artist_id) 
+    do nothing
 """)
 
 
@@ -112,6 +117,8 @@ time_table_insert = ("""
     ) VALUES (
        %s, %s, %s, %s, %s, %s, %s
     )
+    on conflict (start_time)
+    do nothing
 """)
 
 # FIND SONGS

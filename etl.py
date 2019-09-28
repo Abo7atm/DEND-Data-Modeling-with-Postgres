@@ -7,6 +7,19 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
+    """Processes single song file and inserts the data into the database.
+    
+    Extract data about song and the artist from the song JSON file and inserts
+    the records into the appropriate tables in the database.
+
+    Parameters
+    ----------
+    cur : cursor
+        Postgres python wrapper's cursor object
+
+    filepath : str
+        Path to JSON song file
+    """
     # open song file
     # this method seems to work instead of read_json
     json_file = json.load(open(filepath, 'rb')) 
@@ -24,6 +37,19 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """Processes single log file and inserts the data into the database.
+    
+    Extract log data from log file and inserts the records into the appropriate
+    tables in the database.
+
+    Parameters
+    ----------
+    cur : cursor
+        Postgres python wrapper's cursor object
+
+    filepath : str
+        Path to log file
+    """
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -68,6 +94,22 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    """Iterates through the available files and use provided function.
+
+    Parameters
+    ----------
+    cur : cursor
+        Postgres python wrapper's cursor object
+
+    conn : connection
+        Postgres Python wrapper's connection to datebase object
+
+    filepath : str
+        Path to log file
+
+    func : function
+        Function to use for processing file
+    """
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
