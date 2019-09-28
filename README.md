@@ -8,8 +8,14 @@ The star schema is considered the simplest type of Data Warehousing schema, whic
 The pipeline is prepares the data before inserting into the database, in terms of converting timestamps to readable formats of time. Going over all the files ensures that all the data is inserted into the database.
 
 ## Usage
-First, using pyhton3, run ```bash
-python create_tables.py``` to initialize the database.<br/>
-Then run ```bash
-python etl.py```, and you're all set.
+First, using pyhton3, run 
+```bash
+python create_tables.py
+```
+to initialize the database.<br/>
+Then run
+```bash
+python etl.py
+```
+and you're all set.
 
